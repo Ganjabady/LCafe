@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منوی دیجیتال | ال کافه LCafe</title>
+    
+    <!-- Professional Persian Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    
+    <style>
+        :root {
+            /* Premium Minimal Color Palette */
+            --bg-color: #F8F6F2;        /* Warm off-white */
+            --surface-color: #FFFFFF;   /* Pure white for cards */
+            --text-primary: #1A1A18;    /* Soft black for readability */
+            --text-secondary: #76736A;  /* Elegant gray */
+            --accent-color: #A37F58;    /* Muted coffee/gold accent */
+            --accent-hover: #8A6A48;    
+            --border-color: #EBE8E0;    /* Very soft border */
+            --shadow-subtle: 0 8px 30px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 20px 40px rgba(163, 127, 88, 0.08);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --radius-pill: 100px;
+            
+            /* Typography */
+            --font-family: 'Vazirmatn', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Container - Mobile First Focus */
+        .app-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* ===== Header (Premium Cafe Aesthetic) ===== */
+        .header {
+            padding: 50px 0 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            animation: fadeDown 0.8s ease forwards;
+        }
+
+        .logo-wrapper {
+            width: 110px;
+            height: 110px;
+            border-radius: var(--radius-lg);
+            background: var(--surface-color);
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .logo-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: calc(var(--radius-lg) + 2px);
+            border: 1px solid var(--accent-color);
+            opacity: 0.2;
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .brand-subtitle {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .info-pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .info-pill {
+            background: var(--surface-color);
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+        }
+
+        .info-pill:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+        }
+
+        /* ===== Sticky Toolbar (Search & Filters) ===== */
+        .sticky-toolbar {
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: rgba(248, 246, 242, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255,255,255,0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeIn 0.8s 0.3s ease forwards;
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 14px 45px 14px 20px;
+            border-radius: var(--radius-pill);
+            font-family: var(--font-family);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #B5B2A8;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(163, 127, 88, 0.1);
+        }
+
+        .filter-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 4px;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .filter-scroll::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
+
+        .filter-btn {
+            background: var(--surface-color);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            font-family: var(--font-family);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-primary);
+            background: #F0EDE4;
+        }
+
+        .filter-btn.active {
+            background: var(--text-primary);
+            color: var(--surface-color);
+            border-color: var(--text-primary);
+        }
+
+        /* ===== Menu Grid ===== */
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 0 4px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .category-line {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-color), transparent);
+        }
+
+        .category-count {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: var(--radius-pill);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        /* Responsive Grid Setup */
+        @media (min-width: 600px) {
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 900px) {
+            .items-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .sticky-toolbar {
+                flex-direction: row;
+                align-items: center;
+            }
+            .search-wrapper {
+                max-width: 300px;
+            }
+        }
+
+        /* ===== Premium Card Design ===== */
+        .item-card {
+            background: var(--surface-color);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            border: 1px solid transparent;
+            box-shadow: var(--shadow-subtle);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .item-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(163, 127, 88, 0.2);
+        }
+
+        .item-image {
+            width: 90px;
+            height: 90px;
+            flex-shrink: 0;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg-color);
+            position: relative;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .item-card:hover .item-image img {
+            transform: scale(1.1);
+        }
+
+        .item-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+            gap: 10px;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .item-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .item-price {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            display: inline-block;
+            background: rgba(163, 127, 88, 0.08);
+            padding: 4px 12px;
+            border-radius: 8px;
+            align-self: flex-start;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer p {
+            margin-bottom: 8px;
+        }
+
+        .designer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            padding: 8px 16px;
+            background: var(--surface-color);
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .designer-link:hover {
+            background: var(--accent-color);
+            color: var(--surface-color);
+            border-color: var(--accent-color);
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-wrapper">
+            <img src="https://raw.githubusercontent.com/Ganjabady/LCafe/refs/heads/main/logo.png" alt="LCafe Logo">
+        </div>
+        <h1 class="brand-title">ال کافه</h1>
+        <div class="brand-subtitle">Specialty Coffee</div>
+        
+        <div class="info-pill-container">
+            <div class="info-pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                بندرعباس، رسالت جنوبی
+            </div>
+            <div class="info-pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                ۰۹۱۷۰۰۰۳۶۰۶
+            </div>
+            <div class="info-pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                ۸:۰۰ الی ۲۳:۰۰
+            </div>
+        </div>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="sticky-toolbar">
+        <div class="search-wrapper">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" class="search-input" id="searchInput" placeholder="جستجو در منو ...">
+        </div>
+        
+        <div class="filter-scroll" id="filterTabs">
+            <button class="filter-btn active" data-filter="all">همه موارد</button>
+            <button class="filter-btn" data-filter="نوشیدنی گرم بر پایه قهوه">☕ گرم</button>
+            <button class="filter-btn" data-filter="نوشیدنی سرد بر پایه قهوه">🧊 سرد</button>
+            <button class="filter-btn" data-filter="قهوه دمی">⚗️ دمی</button>
+            <button class="filter-btn" data-filter="بار سرد">🍹 بار سرد</button>
+            <button class="filter-btn" data-filter="دمنوش">🍵 دمنوش</button>
+            <button class="filter-btn" data-filter="چای">🫖 چای</button>
+            <button class="filter-btn" data-filter="سیروپ">🍯 سیروپ</button>
+            <button class="filter-btn" data-filter="کیک">🍰 کیک</button>
+        </div>
+    </div>
+
+    <!-- Menu Content -->
+    <main id="menuContent">
+        <!-- JS Injects Here -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>ال کافه، تجربه طعم واقعی قهوه تخصصی</p>
+        <p>بندرعباس، رسالت جنوبی، پشت اتکا، کوچه خیبر</p>
+        
+        <a href="https://Ganjabady.ir" target="_blank" class="designer-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            طراحی: حسین حوت گنج آبادی
+        </a>
+    </footer>
+
+</div>
+
+<script>
+    const menuData = [
+        { name: "اسپرسو دبل 100 روبوستا", desc: "از 16 تا 20 گرم · وزن ۳۵-۴۰ گرم", price: "۱۶۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/esperso-dabel-300x300.webp" },
+        { name: "اسپرسو دبل 30 عربیکا", desc: "از 16 تا 20 گرم · وزن ۳۵-۴۰ گرم", price: "۱۸۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/esperso-dabel-300x300.webp" },
+        { name: "لاته ماسالا", desc: "اسپرسو دبل · پودر ماسالا · شیر · فوم شیر", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/-ماسالا-1-e1777730829938-300x300.webp" },
+        { name: "فلت وایت", desc: "اسپرسو دبل · شیر · فوم شیر", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/-وایت-e1777730311254-300x300.webp" },
+        { name: "اسپرسو دبل100 عربیکا", desc: "از 16 تا 20 گرم · وزن ۳۵-۴۰ گرم", price: "۲۳۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/esperso-dabel-300x300.webp" },
+        { name: "اسپرسو دبل80 عربیکا", desc: "از 16 تا 20 گرم · وزن ۳۵-۴۰ گرم", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/esperso-dabel-300x300.webp" },
+        { name: "اسپرسو دبل70 عربیکا", desc: "از 16 تا 20 گرم · وزن ۳۵-۴۰ گرم", price: "۲۱۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/esperso-dabel-300x300.webp" },
+        { name: "اسپرسو دبل60 عربیکا", desc: "از 16 تا 20 گرم · وزن ۳۵-۴۰ گرم", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/esperso-dabel-300x300.webp" },
+        { name: "اسپرسو دبل 50 عربیکا", desc: "از 16 تا 20 گرم · وزن ۳۵-۴۰ گرم", price: "۱۹۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/esperso-dabel-300x300.webp" },
+        { name: "کاپوچینو", desc: "اسپرسو دوبل · شیر · فوم · سیروپ/پودر شکلات", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/chapochino-e1732436432704-300x300.webp" },
+        { name: "آمریکانو", desc: "اسپرسو دبل · آب جوش", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/amricano-1-e1732182503100-300x300.webp" },
+        { name: "نسکافه", desc: "قهوه گلد · آب جوش · شکر", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/nescafe-300x300.webp" },
+        { name: "آفاگاتو", desc: "بستنی · اسپرسو دبل", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/afaghato-300x300.webp" },
+        { name: "گلد", desc: "قهوه گلد · آب سرد · شکر · آب جوش", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/gold-300x300.webp" },
+        { name: "موکا", desc: "اسپرسو دبل · شیر · پودر شکلات · فوم شیر", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/moca-300x300.webp" },
+        { name: "لاته", desc: "اسپرسو دبل · شیر · فوم شیر", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/late-300x300.webp" },
+        { name: "کورتادو", desc: "اسپرسو دبل · شیر · کف شیر", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/cortado-e1732181002215-300x300.webp" },
+        { name: "کارامل ماکیاتو", desc: "اسپرسو دبل · سیروپ کارامل · شیر · فوم شیر", price: "۲۰۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-ماکیاتو-e1777717804637-300x300.webp" },
+        { name: "رد آی", desc: "اسپرسو دبل · قهوه دمی کلد برو", price: "۲۵۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/-آی-e1777731059669-300x300.webp" },
+        { name: "هات چاکلت", desc: "پودر هات چاکلت دارک · شیر", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/hot-chocolate-300x300.webp" },
+        { name: "شیر عسل دارچین", desc: "شیر · عسل · دارچین", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/-عسل-دارچین-e1777731721298-300x300.webp" },
+        { name: "هات کارامل", desc: "هات چاکلت · کارامل", price: "۲۲۰,۰۰۰", category: "نوشیدنی گرم بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/هات-کارامل-300x300.webp" },
+
+        { name: "آیس آمریکانو", desc: "اسپرسو دبل · آب یخ · یخ", price: "۲۰۰,۰۰۰", category: "نوشیدنی سرد بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/ice-amricano-300x300.webp" },
+        { name: "آیس لاته", desc: "اسپرسو دبل · شیر سرد · یخ", price: "۲۰۰,۰۰۰", category: "نوشیدنی سرد بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/ice-late-300x300.webp" },
+        { name: "آیس موکا", desc: "اسپرسو دبل · شیر سرد · یخ · سیروپ شکلات", price: "۲۰۰,۰۰۰", category: "نوشیدنی سرد بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/ice-moca-1-300x300.webp" },
+        { name: "آیس کارامل ماکیاتو", desc: "اسپرسو دبل · شیر سرد · فوم شیر · یخ · سیروپ کارامل", price: "۲۲۰,۰۰۰", category: "نوشیدنی سرد بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/ice-caramel-machiato-1-300x300.webp" },
+        { name: "آیس کافی", desc: "اسپرسو دبل · یخ · آب سرد", price: "۱۸۰,۰۰۰", category: "نوشیدنی سرد بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/ice-coffee-e1732437594670-300x300.webp" },
+        { name: "دالگونا", desc: "قهوه فوری · شکر · آب یخ · شیر سرد · یخ", price: "۲۲۰,۰۰۰", category: "نوشیدنی سرد بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/ice-dalgona-e1732437689209-300x300.webp" },
+        { name: "آیس کاپوچینو", desc: "پودر کاپوچینو · شیر · یخ · سس شکلات", price: "۲۰۰,۰۰۰", category: "نوشیدنی سرد بر پایه قهوه", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/ice-chapochino-2-300x300.webp" },
+
+        { name: "ترک", desc: "پودر قهوه ترک · آب جوش", price: "۱۸۰,۰۰۰", category: "قهوه دمی", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/turk-coffee-e1732442167628-300x300.webp" },
+        { name: "یونانی", desc: "قهوه ترک · شیر", price: "۲۰۰,۰۰۰", category: "قهوه دمی", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/Greek-coffee-300x300.webp" },
+        { name: "فرانسه", desc: "پودر قهوه فرانسه · آب جوش", price: "۲۲۰,۰۰۰", category: "قهوه دمی", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/fernch-coffee-e1732441975818-300x300.webp" },
+        { name: "V 60", desc: "قهوه 70 عربیکا · دم‌آوری V60", price: "۲۲۰,۰۰۰", category: "قهوه دمی", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/v60-main-300x300.webp" },
+        { name: "کمکس", desc: "قهوه 70 عربیکا · دم‌آوری کمکس", price: "۲۲۰,۰۰۰", category: "قهوه دمی", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/wjeuovqim8aj-1-300x300.webp" },
+        { name: "کلد برو", desc: "شات 60 میلی‌لیتر · دم‌آوری کلد برو تاور", price: "۲۵۰,۰۰۰", category: "قهوه دمی", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/-برو-e1777887459492-300x300.webp" },
+
+        { name: "موهیتو بلو کارسائو", desc: "نعنا · لیمو · آب لیمو · سیروپ موهیتو · بلو کاراسائو · شکر · آب گازدار", price: "۲۲۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/FJJI5574-e1777887586588-300x300.webp" },
+        { name: "موهیتو", desc: "نعنا · لیمو · آب لیمو · سیروپ موهیتو · شکر · آب گازدار", price: "۲۰۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/Designer-1-e1777888350311-300x300.webp" },
+        { name: "لیموناد", desc: "آب گازدار · لیموترش · شکر · یخ · نعنا تازه · تکه‌های لیمو", price: "۲۰۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/download-e1777889388828-300x300.webp" },
+        { name: "منگو ماچا", desc: "سیروپ انبه · شیر · یخ · چای ماچا", price: "۲۵۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/Designer-e1777889834409-300x300.webp" },
+        { name: "رد موهیتو", desc: "موهیتو · چای ترش سرد دم", price: "۲۲۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/red-mohito-300x300.webp" },
+        { name: "موهیتو کلاسیک", desc: "لیمو · نعنا خشک · عسل · آب گازدار · نعنا تازه · لیمو اسلایس", price: "۲۰۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/موهیتو-کلاسیک-300x300.webp" },
+        { name: "بلو هاوایی", desc: "بلو کارسائو · عسل · لیمو · آب گازدار · یخ", price: "۲۵۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/-هاوایی-1-e1777892748529-300x300.webp" },
+        { name: "ریمبو وایب", desc: "بلو کارسائو · آب لیمو · آب پرتقال · پنیرک سرد دم · یخ", price: "۳۰۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/Rimbo-Vibe-e1777896731688-300x300.webp" },
+        { name: "پیناکولادا", desc: "بستنی وانیل · شیر · نارگیل · آب آناناس", price: "۳۰۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/unnamed-1-300x300.webp" },
+        { name: "شیر انبه", desc: "شیر · سیروپ انبه · یخ · شکر", price: "۲۰۰,۰۰۰", category: "بار سرد", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/-انبه-e1778082918347-300x300.webp" },
+
+        { name: "زنجبیل", desc: "زنجبیل · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-e1777717678990-300x300.webp" },
+        { name: "دارچین", desc: "دارچین · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-e1777717615778-300x300.webp" },
+        { name: "گل گاو زبان", desc: "گل گاو زبان · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-گاو-زبان-e1777717585781-300x300.webp" },
+        { name: "به لیمو", desc: "به لیمو · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-لیمو-e1777717539720-300x300.webp" },
+        { name: "بهارنارنج", desc: "بهار نارنج · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-نارنج-e1777717505952-300x300.webp" },
+        { name: "گل ختمی", desc: "گل ختمی · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-ختمی-e1777717457182-300x300.webp" },
+        { name: "آویشن", desc: "آویشن · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-e1777717416511-300x300.webp" },
+        { name: "پنیرک", desc: "پنیرک · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-e1777717363245-300x300.webp" },
+        { name: "پونه", desc: "پونه · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-e1777717267946-300x300.webp" },
+        { name: "گل محمدی", desc: "گل محمدی · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "دمنوش", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-محمدی-e1777717206792-300x300.webp" },
+
+        { name: "ماسالا", desc: "پودر چای ماسالا · شیر", price: "۱۸۰,۰۰۰", category: "چای", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/tae-masala-300x300.webp" },
+        { name: "به", desc: "چای به · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "چای", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-به-e1777717164725-300x300.webp" },
+        { name: "ترش", desc: "چای ترش · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "چای", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-ترش-e1777717030663-300x300.webp" },
+        { name: "میوه‌ای", desc: "چای میوه‌ای · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "چای", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-میوه-ای-e1777715935758-300x300.webp" },
+        { name: "سبز", desc: "چای سبز انگلیسی · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "چای", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-سبز-e1777715371677-300x300.webp" },
+        { name: "کوهی", desc: "چای کوهی · آب جوش · دم‌آوری فرنچ پرس", price: "۱۸۰,۰۰۰", category: "چای", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/-کوهی-e1777715806565-300x300.webp" },
+        { name: "ماچا لاته", desc: "چای ماچا · لاته", price: "۲۰۰,۰۰۰", category: "چای", img: "https://menu.amocafe.ir/wp-content/uploads/2026/05/ماچا-لاته-300x300.webp" },
+
+        { name: "وانیل", desc: "سیروپ وانیل", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/sirop-vanilla-300x300.webp" },
+        { name: "کارامل", desc: "سیروپ کارامل", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/sirop-caramel-300x300.webp" },
+        { name: "شکلات", desc: "سیروپ شکلات", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/sirop-chocolate-300x300.webp" },
+        { name: "گل رز", desc: "سیروپ گل رز", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/sirop-rose-300x300.webp" },
+        { name: "توت فرنگی", desc: "سیروپ توت فرنگی", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/sirop-Strawberries-300x300.jpg" },
+        { name: "زنجبیل", desc: "سیروپ زنجبیل", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/sriop-ginger-300x300.webp" },
+        { name: "دارچین", desc: "سیروپ دارچین", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/sirop-cinnamon-300x300.webp" },
+        { name: "فندق", desc: "سیروپ فندق", price: "۵۰,۰۰۰", category: "سیروپ", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/hazelnut-300x300.webp" },
+
+        { name: "کیک شکلاتی", desc: "پودر کیک · تخم‌مرغ · شیر · آب · روغن · آرد", price: "۱۸۰,۰۰۰", category: "کیک", img: "https://menu.amocafe.ir/wp-content/uploads/2024/11/CAKE-e1777718151814-300x300.webp" }
+    ];
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.1
+    };
+    
+    const cardObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    function renderMenu(categoryFilter = 'all', searchTerm = '') {
+        const container = document.getElementById('menuContent');
+        container.innerHTML = '';
+
+        const categories = [...new Set(menuData.map(item => item.category))];
+        const filteredCategories = categories.filter(cat => categoryFilter === 'all' || cat === categoryFilter);
+
+        let hasItems = false;
+
+        filteredCategories.forEach(cat => {
+            const items = menuData.filter(item => {
+                const matchCat = item.category === cat;
+                const matchSearch = item.name.includes(searchTerm) || item.desc.includes(searchTerm);
+                return matchCat && matchSearch;
+            });
+            
+            if (items.length === 0) return;
+            hasItems = true;
+
+            const section = document.createElement('section');
+            section.className = 'category-section';
+
+            const header = document.createElement('div');
+            header.className = 'category-header';
+            header.innerHTML = `
+                <h2 class="category-title">${cat}</h2>
+                <div class="category-count">${items.length}</div>
+                <div class="category-line"></div>
+            `;
+            section.appendChild(header);
+
+            const grid = document.createElement('div');
+            grid.className = 'items-grid';
+            
+            items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                // Slight delay logic for initial load animation staggering
+                card.style.transitionDelay = `${(index % 4) * 0.05}s`;
+                
+                card.innerHTML = `
+                    <div class="item-image">
+                        <img src="${item.img}" alt="${item.name}" loading="lazy">
+                    </div>
+                    <div class="item-content">
+                        <div class="item-header">
+                            <h3 class="item-name">${item.name}</h3>
+                        </div>
+                        <p class="item-desc">${item.desc}</p>
+                        <span class="item-price">${item.price} تومان</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+                
+                // Observe for animation
+                cardObserver.observe(card);
+            });
+            
+            section.appendChild(grid);
+            container.appendChild(section);
+        });
+
+        // Show empty state if no results found
+        if (!hasItems) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">☕</div>
+                    <h3>موردی یافت نشد</h3>
+                    <p>لطفاً کلمه دیگری را جستجو کنید.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Events Setup
+    document.addEventListener('DOMContentLoaded', () => {
+        renderMenu('all', '');
+
+        // Filters
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Scroll filter tabs smoothly to center active item
+                this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+                const filter = this.dataset.filter;
+                const search = document.getElementById('searchInput').value.trim();
+                renderMenu(filter, search);
+            });
+        });
+
+        // Search Input with Debounce
+        const searchInput = document.getElementById('searchInput');
+        let timeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                const activeFilter = document.querySelector('.filter-btn.active');
+                const filter = activeFilter ? activeFilter.dataset.filter : 'all';
+                renderMenu(filter, this.value.trim());
+            }, 300);
+        });
+    });
+</script>
+</body>
+</html>
